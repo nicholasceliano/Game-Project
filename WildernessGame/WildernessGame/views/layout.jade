@@ -1,0 +1,21 @@
+﻿doctype html
+html
+    head
+        title #{title}
+        script(src='/javascripts/3rdParty/jquery-1.10.2.js')
+        script(src='/javascripts/3rdParty/handlebars-v3.0.3.js')
+        script(src='/javascripts/3rdParty/knockout-3.3.0.js')
+        script(src='/socket.io/socket.io.js')
+        script(src='/javascripts/GeneralGameFunctions.js')
+        script(src='/javascripts/ClientSocket.js')
+        script(src='/javascripts/PageViewObjects.js')
+        script(src='/javascripts/PageLoad.js')
+    body
+        header(id='test') Application Header Title?
+        hr
+        block content
+        hr
+        footer
+            p Footer
+
+    block scripts

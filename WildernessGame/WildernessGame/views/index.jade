@@ -1,0 +1,17 @@
+﻿extends layout
+
+block content
+    script(type='text/javascript').
+        $(document).ready(function(){
+            PageLoad.index();
+        });
+    
+    div(id='pnlLogIn' style='display:none;')
+        input(id='txtUsername' type='textbox')
+        button(onclick='ClientSocket.userConnect();') Enter
+    div(id='pnlActiveUser' style='display:none;')
+        p You're already logged in as 
+            b
+                span(id='lblUsername') 
+        button(onclick='ClientSocket.userConnect(false);') Enter Game
+        button(onclick='ClientSocket.logOut();') Log Out

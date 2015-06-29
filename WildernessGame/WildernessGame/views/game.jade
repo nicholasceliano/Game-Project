@@ -1,0 +1,50 @@
+﻿extends layout
+
+block content
+    //Scripts BeforeLoad
+    script(src='/javascripts/Chat.js')
+
+    //StyleSheets
+    link(rel='stylesheet', href='/stylesheets/MainGameWindow.css')
+
+    input(id='hfUserName' type='hidden' value='#{userName}')
+    input(id='hfUserList' type='hidden' value='#{userList}')
+    script(type='text/javascript').
+        GeneralGameFunctions.verifyUser($('#hfUserName').val());
+    
+    button(id='btnHome' onclick='window.location.href = "/";') Home
+    button(id='btnLogOut' onclick='ClientSocket.logOut();') Log Out
+
+    div(id='graphicsMainWindow' style='width:100%;text-align:center;height:550px;')
+        p(style='margin:0;') #{title}
+        
+        div(id='gameScreen')
+        div(id='gameInfo')
+            input(id='txtChat' onkeydown='Chat.sendChatMessage(event)')
+            div(id='chatWindow')
+                ul(id='lstChat')
+            div(id='userWindow')
+                p User Count: 
+                    span(id='lblUserCount' data-bind='text: PageData.userCount()')
+                select(id='lstUsers' size='6' data-bind='foreach:PageData.userDataList()')
+                    option(data-bind="text: user, style: { background: user() == $('#hfUserName').val() ? '#CEE6FF' : '' }")
+                    //TODO: Need to fix stlye color
+
+    //Scripts AfterLoad
+    script(src='/javascripts/3rdParty/three.js')
+    script(src='/javascripts/Graphics.js')
+    script(type='text/javascript').
+        $(document).ready(function(){
+            PageLoad.game();
+        });
+
+    //Templates
+    script(id='tmpChatMessage' type='text/x-handlebars-template')
+        li
+            span(style='font-weight:bold;') {{userName}}:
+            span {{msg}}
+
+    script(id='tmpChatMessageCurrentUser' type='text/x-handlebars-template')
+        li
+            span(style='font-weight:bold;background-color:#CEE6FF;') {{userName}}:
+            span {{msg}}
